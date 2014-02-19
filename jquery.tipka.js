@@ -1,6 +1,5 @@
  /*
  * @author Krzysiek Grzembski (mynthon)
- * 
  */
 
 (function($){
@@ -359,6 +358,19 @@
 	 *  tip mouse rollout.
 	 */
 
+
+
+	 /*
+	  *
+	  * todo: implement
+	  *
+		tipHoverBind: true,
+		enter: function(){},
+		exit: function(){}
+	};
+	  */
+
+
 	var defaults = {
 		addClass:'',
 		activation: "hover",
@@ -386,6 +398,7 @@
 			return this.filter(':not(.tipka_hastip)').each(function(){
 				var $trigger = $(this);
 				var trigger = this;
+				var loadTimeoutObj = null
 
 				var opts = {};
 				$.extend(opts, defaults, localOptions);
@@ -397,6 +410,7 @@
 
 				if(!$trigger.data('tipPanel')){
 					$trigger.data('tipPanel', new TipPanel(this, this.opts));
+					var tipPanel = $(this).data('tipPanel')
 				}
 
 				/*
@@ -407,9 +421,8 @@
 				 */
 				this.updateContent = function(content){
 					console.log('BACKWARD COMPATIBILITY: updateContent')
-					var p = $(this).data('tipPanel')
-					p.setContent(content)
-					p.reposition()
+					tipPanel.setContent(content)
+					tipPanel.reposition()
 				}
 
 				/*
@@ -445,15 +458,16 @@
 					e.preventDefault();
 					e.stopPropagation();
 
-					trigger.open();
+					loadTimeoutObj = setTimeout(function(){
+						trigger.open();
+					}, (tipPanel.isAttached() ? 0 : options.delay));
 				};
 
 				this.open = function(){
-					var p = $trigger.data('tipPanel');
-					p.setContent(contentFactory());
+					tipPanel.setContent(contentFactory());
 					oldTitle = $trigger.attr('title');
 					$trigger.attr('title', null);
-					p.open();
+					tipPanel.open();
 				};
 
 				/*
@@ -463,16 +477,15 @@
 				 * @returns {undefined}
 				 */
 				var actionClose = function(e){
+					clearTimeout(loadTimeoutObj)
 					if (!options.keepAlive) {
-						var p = $trigger.data('tipPanel');
-						p.close();
+						tipPanel.close();
 					}
 					$trigger.attr('title', oldTitle);
 				};
 
 				this.close = function(e){
-					var p = $trigger.data('tipPanel');
-					p.close();
+					tipPanel.close();
 					$trigger.attr('title', oldTitle);
 				};
 
