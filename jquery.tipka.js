@@ -307,13 +307,15 @@
 
 				$('body').append($holder);
 
-				$holder.off('mouseover.tipka').on('mouseover.tipka', function(){
-					that.open()
-				});
+				if (this.options.keepOnTip){
+					$holder.off('mouseover.tipka').on('mouseover.tipka', function(){
+						that.open()
+					});
 
-				$holder.off('mouseout.tipka').on('mouseout.tipka', function(){
-					that.close()
-				});
+					$holder.off('mouseout.tipka').on('mouseout.tipka', function(){
+						that.close()
+					});
+				}
 			}
 		},
 
@@ -353,21 +355,16 @@
 	 *	findAnySpot - try to fit in any fully visible spot. If no fully visible spot found display at default position.
 	 *	defaultsBestFit - show in spot where tip will be mostly visible. Check only defaults.
 	 *	bestFit - if no fully visible spot find where tip will be most visible.
-	 * @param bool tipHoverBind determines if tip should stay after moving cursor
-	 *  over it or only over trigger and if close action should be fired after
-	 *  tip mouse rollout.
+	 * @param bool keepOnTip determines if tip should stay after moving cursor
+	 *  over it or should always disappear after moving cursor out of trigger
 	 */
 
 
 
 	 /*
-	  *
 	  * todo: implement
-	  *
-		tipHoverBind: true,
 		enter: function(){},
 		exit: function(){}
-	};
 	  */
 
 
@@ -380,7 +377,7 @@
 		edgeOffset: 3,
 		defaultPosition: "b",
 		smartPosition: 'defaultsBestFit',
-		tipHoverBind: true,
+		keepOnTip: true,
 		delay: 400,
 		fadeIn: 200,
 		fadeOut: 50,
