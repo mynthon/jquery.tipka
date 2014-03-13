@@ -3,6 +3,30 @@
  */
 
 (function($){
+	 /*
+	  * todo: implement
+		enter: function(){},
+		exit: function(){}
+	  */
+
+	$.tipkaTipDefaults = {
+		addClass:'',
+		activation: "hover",
+		keepAlive: false,
+		maxWidth: "200px",
+		maxHeight: null,
+		edgeOffset: 3,
+		defaultPosition: "b",
+		smartPosition: 'defaultsBestFit',
+		keepOnTip: true,
+		delay: 400,
+		fadeIn: 200,
+		fadeOut: 50,
+		attribute: "title",
+		content: false, // HTML or String to fill tipka with
+		enter: function(){},
+		exit: function(){}
+	};
 
 	var TipPanel = function(trigger, options){
 		this.id = 'tiphld' + (+new Date()) + '' + Math.round(Math.random() * 1e6);
@@ -298,6 +322,10 @@
 			}, this.clotms)
 		},
 
+		hideByMargin: function(){
+			this.holder.css({'margin-top':'-999999em', 'margin-left':'-999999em'})
+		},
+
 		attach: function(){
 			var that = this;
 			var $holder = this.holder;
@@ -328,17 +356,31 @@
 		},
 
 		setContent: function(html){
-			var that = this
-			this.content.html(html)
-			this.content.find('img').each(function(){
-				var img = new Image()
+			var that = this;
+			var $temp = $('<div />').html(html);
+			$temp.find('img').hide();
+
+			this.content.html($temp.html());
+			var images = this.content.find('img');
+
+			images.each(function(){
+				var $img = $(this);
+				var img = new Image();
+
 				img.onload = function(){
-					that.reposition()
-				}
+					that.hideByMargin()
+					$img.show();
+					that.reposition();
+				};
+
 				img.onerror = function(){
-					that.reposition()
-				}
-			})
+					that.hideByMargin()
+					$img.show();
+					that.reposition();
+				};
+
+				img.src = $(this).attr('src')
+			});
 		}
 	}
 
@@ -361,31 +403,7 @@
 
 
 
-	 /*
-	  * todo: implement
-		enter: function(){},
-		exit: function(){}
-	  */
 
-
-	var defaults = {
-		addClass:'',
-		activation: "hover",
-		keepAlive: false,
-		maxWidth: "200px",
-		maxHeight: null,
-		edgeOffset: 3,
-		defaultPosition: "b",
-		smartPosition: 'defaultsBestFit',
-		keepOnTip: true,
-		delay: 400,
-		fadeIn: 200,
-		fadeOut: 50,
-		attribute: "title",
-		content: false, // HTML or String to fill tipka with
-		enter: function(){},
-		exit: function(){}
-	};
 
 	var methods = {
 		init : function(options) {
@@ -398,20 +416,16 @@
 				var loadTimeoutObj = null
 
 				var opts = {};
-				$.extend(opts, defaults, localOptions);
+				$.extend(opts, $.tipkaTipDefaults, localOptions);
 				this.opts = opts; //po przebudowie trzeba używać tylko tego
 				var options = trigger.opts
 
 				$trigger.addClass('tipka_hastip'); //be sure to not add two tips to one trigger
 				var oldTitle = '';
-
-				if(!$trigger.data('tipPanel')){
-					$trigger.data('tipPanel', new TipPanel(this, this.opts));
-					var tipPanel = $(this).data('tipPanel')
-				}
+				var tipPanel = null
 
 				/*
-				 * needed for backward compatibility reasons
+				 * needed for backward compatibility reasons (for me only)
 				 *
 				 * @param {type} content
 				 * @returns {undefined}
@@ -420,6 +434,17 @@
 					console.log('BACKWARD COMPATIBILITY: updateContent')
 					tipPanel.setContent(content)
 					tipPanel.reposition()
+				}
+
+				/*
+				 * helper function for lazy creation of panel
+				 * @returns {undefined}
+				 */
+				function createPanel(){
+					if(!$trigger.data('tipPanel')){
+						$trigger.data('tipPanel', new TipPanel(trigger, trigger.opts));
+						tipPanel = $trigger.data('tipPanel')
+					}
 				}
 
 				/*
@@ -457,10 +482,11 @@
 
 					loadTimeoutObj = setTimeout(function(){
 						trigger.open();
-					}, (tipPanel.isAttached() ? 0 : options.delay));
+					}, (tipPanel && tipPanel.isAttached() ? 0 : options.delay));
 				};
 
 				this.open = function(){
+					createPanel()
 					tipPanel.setContent(contentFactory());
 					oldTitle = $trigger.attr('title');
 					$trigger.attr('title', null);
@@ -475,15 +501,13 @@
 				 */
 				var actionClose = function(e){
 					clearTimeout(loadTimeoutObj)
-					if (!options.keepAlive) {
-						tipPanel.close();
-					}
-					$trigger.attr('title', oldTitle);
+					if (tipPanel && !options.keepAlive) {tipPanel.close();}
+					if (oldTitle){$trigger.attr('title', oldTitle);}
 				};
 
 				this.close = function(e){
-					tipPanel.close();
-					$trigger.attr('title', oldTitle);
+					if (tipPanel){tipPanel.close();}
+					if (oldTitle){$trigger.attr('title', oldTitle);}
 				};
 
 				/*
