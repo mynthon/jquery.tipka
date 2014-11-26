@@ -9,6 +9,7 @@
 		exit: function(){}
 	  */
 
+	var negativeMargin = '-99999999999em';
 
 	/*
 	 * Usage: tipka_reposition.call($myObject);
@@ -283,7 +284,10 @@
 			if($(".tipka_holder" + this.idSel).length > 0){
 				this.holder.stop().remove();
 			}
-			this.holder = $('<div class="tipka_holder ' + this.id + ' ' + opts.addClass + '" style="min-width:40px; position:absolute; top:0; left:0; display:block; margin-left:-9999em;max-width:'+ opts.maxWidth +';"></div>');
+			this.holder = $('<div class="tipka_holder ' +
+				this.id + ' ' + opts.addClass +
+				'" style="min-width:40px; position:absolute; top:0; left:0; display:block; margin-left:' + negativeMargin + ';max-width:' +
+				opts.maxWidth +';"></div>');
 			this.content = $('<div class="tipka_content"></div>');
 			this.arrow = $('<div class="tipka_arrow" style="position:absolute;"><div class="tipka_arrow_outer"></div><div class="tipka_arrow_inner"></div></div>');
 
@@ -323,13 +327,13 @@
 			this.cloto = setTimeout(function(){
 				$holder.stop(true,false).fadeTo(opts.fadeOut, 0, function(){
 					that.detach();
-					$holder.css({display:'block', marginLeft:"-9999em"});
+					$holder.css({display:'block', marginLeft:negativeMargin, marginTop:negativeMargin});
 				});
 			}, this.clotms)
 		},
 
 		hideByMargin: function(){
-			this.holder.css({'margin-top':'-999999em', 'margin-left':'-999999em'})
+			this.holder.css({'margin-top':negativeMargin, 'margin-left':negativeMargin})
 		},
 
 		attach: function(){
