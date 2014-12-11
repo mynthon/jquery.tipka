@@ -1,38 +1,38 @@
 /* TipTip CSS - Version 1.2 */
 
-.tiptip_holder {display: none;position: absolute;top: 0;left: 0;z-index: 99999;}
+.tipka_holder {display: none;position: absolute;top: 0;left: 0;z-index: 99999;}
 
-.tiptip_content {font-size: 11px;color: #0088dd;padding: 4px 8px;border: 1px solid #cce7f8;background-color: #f3faff;border-radius: 3px;
+.tipka_content {font-size: 11px;color: #0088dd;padding: 4px 8px;border: 1px solid #cce7f8;background-color: #f3faff;border-radius: 3px;
 	-webkit-border-radius: 1px;-moz-border-radius: 1px;box-shadow: 0 0 3px #555;-webkit-box-shadow: 0 0 3px #555;-moz-box-shadow: 0 0 3px #555;}
 
-.tiptip_arrow{width:18px; height:18px; border:0; position: absolute; font-size:0;}
-.tiptip_arrow_outer{position:absolute; border: 9px solid transparent; font-size:0;}
-.tiptip_arrow_inner{position:absolute; border: 9px solid transparent; font-size:0;}
+.tipka_arrow{width:18px; height:18px; border:0; position: absolute; font-size:0;}
+.tipka_arrow_outer{position:absolute; border: 9px solid transparent; font-size:0;}
+.tipka_arrow_inner{position:absolute; border: 9px solid transparent; font-size:0;}
 
-.tiptip_holder.tip_r .tiptip_arrow_outer,
-.tiptip_holder.tip_rt .tiptip_arrow_outer,
-.tiptip_holder.tip_rb .tiptip_arrow_outer {border-right-color: red; margin-left:-18px; }
-.tiptip_holder.tip_r .tiptip_arrow_inner,
-.tiptip_holder.tip_rt .tiptip_arrow_inner,
-.tiptip_holder.tip_rb .tiptip_arrow_inner{border-right-color: green; margin-left:-17px; margin-top:0}
+.tipka_holder.tip_r .tipka_arrow_outer,
+.tipka_holder.tip_rt .tipka_arrow_outer,
+.tipka_holder.tip_rb .tipka_arrow_outer {border-right-color: red; margin-left:-18px; }
+.tipka_holder.tip_r .tipka_arrow_inner,
+.tipka_holder.tip_rt .tipka_arrow_inner,
+.tipka_holder.tip_rb .tipka_arrow_inner{border-right-color: green; margin-left:-17px; margin-top:0}
 
-.tiptip_holder.tip_t .tiptip_arrow_outer,
-.tiptip_holder.tip_tl .tiptip_arrow_outer,
-.tiptip_holder.tip_tr .tiptip_arrow_outer {border-top-color: red; margin-top:0px; }
-.tiptip_holder.tip_t .tiptip_arrow_inner,
-.tiptip_holder.tip_tl .tiptip_arrow_inner,
-.tiptip_holder.tip_tr .tiptip_arrow_inner{border-top-color: green; margin-top:-1px; margin-left:0;}
+.tipka_holder.tip_t .tipka_arrow_outer,
+.tipka_holder.tip_tl .tipka_arrow_outer,
+.tipka_holder.tip_tr .tipka_arrow_outer {border-top-color: red; margin-top:0px; }
+.tipka_holder.tip_t .tipka_arrow_inner,
+.tipka_holder.tip_tl .tipka_arrow_inner,
+.tipka_holder.tip_tr .tipka_arrow_inner{border-top-color: green; margin-top:-1px; margin-left:0;}
 
-.tiptip_holder.tip_b .tiptip_arrow_outer,
-.tiptip_holder.tip_br .tiptip_arrow_outer,
-.tiptip_holder.tip_bl .tiptip_arrow_outer {border-bottom-color: red; margin-top:-1px; }
-.tiptip_holder.tip_b .tiptip_arrow_inner,
-.tiptip_holder.tip_br .tiptip_arrow_inner,
-.tiptip_holder.tip_bl .tiptip_arrow_inner{border-bottom-color: green; margin-top:0; margin-left:0;}
+.tipka_holder.tip_b .tipka_arrow_outer,
+.tipka_holder.tip_br .tipka_arrow_outer,
+.tipka_holder.tip_bl .tipka_arrow_outer {border-bottom-color: red; margin-top:-1px; }
+.tipka_holder.tip_b .tipka_arrow_inner,
+.tipka_holder.tip_br .tipka_arrow_inner,
+.tipka_holder.tip_bl .tipka_arrow_inner{border-bottom-color: green; margin-top:0; margin-left:0;}
 
-.tiptip_holder.tip_l .tiptip_arrow_outer,
-.tiptip_holder.tip_lb .tiptip_arrow_outer,
-.tiptip_holder.tip_lt .tiptip_arrow_outer {border-left-color: red; margin-top:0; }
-.tiptip_holder.tip_l .tiptip_arrow_inner,
-.tiptip_holder.tip_lb .tiptip_arrow_inner,
-.tiptip_holder.tip_lt .tiptip_arrow_inner{border-left-color: green; margin-top:1px; margin-left:0px;}
+.tipka_holder.tip_l .tipka_arrow_outer,
+.tipka_holder.tip_lb .tipka_arrow_outer,
+.tipka_holder.tip_lt .tipka_arrow_outer {border-left-color: red; margin-top:0; }
+.tipka_holder.tip_l .tipka_arrow_inner,
+.tipka_holder.tip_lb .tipka_arrow_inner,
+.tipka_holder.tip_lt .tipka_arrow_inner{border-left-color: green; margin-top:1px; margin-left:0px;}
