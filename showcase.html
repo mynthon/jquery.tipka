@@ -1,0 +1,36 @@
+<!DCTYPE html>
+<html>
+<head>
+	<title>test</title>
+	<style>
+		.trigger{display:inline-block; border:1px solid grey;margin:2px 0; padding:3px;}
+	</style>
+
+	<!-- include jquery, tipka and tipka.css -->
+	<script type="text/javascript" src="jquery/jquery2.js"></script>
+	<script type="text/javascript" src="jquery.tipka.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="tipka.css">
+
+</head>
+
+<body>
+	<br/>
+	<p class="trigger tipka_std" title="This should show in tooltip in the middle  bottom of trigger element.">Standard tooltip</p>
+	<script type="text/javascript">$('.tipka_std').tipka();</script>
+	
+	<br/>
+	<p class="trigger tipka_std2" title="This should show in tooltip but tooltip should try to fit in browser window.">Standard tooltip 2</p>
+	<script type="text/javascript">$('.tipka_std2').tipka({defaultPosition:'b,bl,br'});</script>
+	
+	<br/>
+	<p class="trigger tipka_offset" title="This should show in tooltip and tooltip should show over trigger.">Over trigger tooltip</p>
+	<script type="text/javascript">$('.tipka_offset').tipka({defaultPosition:'b,bl,br', edgeOffset:-20});</script>
+	
+	<br/>
+	<p class="trigger tipka_click" title="This should show in tooltip after clicking trigger.">Click me! Click me!</p>
+	<script type="text/javascript">$('.tipka_click').tipka({defaultPosition:'b,bl,br', activation:'click'});</script>
+
+	
+	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+</body>
+</html>
