@@ -1,7 +1,22 @@
  /*
  * @author Krzysiek Grzembski (mynthon)
+ *
+ * @param {type} $
+ * @returns {undefined}
  */
 
+
+/*
+ *
+ * posiible bug in ie? Tooltip shows with native tooltip?
+then in main function:
+var isIE = navigator.userAgent.match(/msie/i);
+and in methods.init:
+// in ie tooltip show twice if title attribute was used
+if (isIE && options.attribute === 'title') {
+ rewrite title to other attribute and switch it in options
+}
+ */
 (function($){
 	 /*
 	  * todo: implement
@@ -424,10 +439,9 @@
 
 				if ($trigger.hasClass('.tipka_hastip')){return true;} //this is much in ie8 than filter
 
-				var opts = {};
-				$.extend(opts, $.tipkaTipDefaults, localOptions);
-				this.opts = opts; //po przebudowie trzeba używać tylko tego
-				var options = trigger.opts
+				trigger.options = {};
+				$.extend(trigger.options, $.tipkaTipDefaults, localOptions);
+				var options = trigger.options;
 
 				$trigger.addClass('tipka_hastip'); //be sure to not add two tips to one trigger
 				var oldTitle = '';
@@ -451,7 +465,7 @@
 				 */
 				function createPanel(){
 					if(!$trigger.data('tipPanel')){
-						$trigger.data('tipPanel', new TipPanel(trigger, trigger.opts));
+						$trigger.data('tipPanel', new TipPanel(trigger, options));
 						tipPanel = $trigger.data('tipPanel')
 					}
 				}
@@ -495,10 +509,10 @@
 				};
 
 				this.open = function(){
-					createPanel()
+					createPanel();
 					tipPanel.setContent(contentFactory());
 					oldTitle = $trigger.attr('title');
-					$trigger.attr('title', null);
+					$trigger.attr('title','');
 					tipPanel.open();
 				};
 
@@ -535,6 +549,7 @@
 				}else if(options.activation === 'hover'){
 					$trigger.on('mouseover', function(e){
 						actionOpen(e);
+						return false;
 					});
 
 					$trigger.on('mouseout', function(){
