@@ -437,7 +437,7 @@ if (isIE && options.attribute === 'title') {
 				var trigger = this;
 				var loadTimeoutObj = null
 
-				if ($trigger.hasClass('.tipka_hastip')){return true;} //this is much in ie8 than filter
+				if ($trigger.hasClass('tipka_hastip')){return true;} //this is much in ie8 than filter
 
 				trigger.options = {};
 				$.extend(trigger.options, $.tipkaTipDefaults, localOptions);
